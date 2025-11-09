@@ -1,0 +1,27 @@
+- type: batch_start
+  wal_path: /home/douglas/GolangProjects/wal/wal.yaml
+  commands:
+  - name: move
+    source_path: /home/douglas/GolangProjects/wal/a
+    target_path: /home/douglas/GolangProjects/wal/b
+  - name: copy
+    source_path: /home/douglas/GolangProjects/wal/c
+    target_path: /home/douglas/GolangProjects/wal/d
+- type: status_update
+  action: executed
+  index: 0
+  cmd:
+    name: move
+    source_path: /home/douglas/GolangProjects/wal/a
+    target_path: /home/douglas/GolangProjects/wal/b
+- type: status_update
+  action: executed
+  index: 1
+  cmd:
+    name: copy
+    source_path: /home/douglas/GolangProjects/wal/c
+    target_path: /home/douglas/GolangProjects/wal/d
+- type: status_update
+  action: batch_done
+  index: 0
+  cmd: null
