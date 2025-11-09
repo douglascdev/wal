@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/goccy/go-yaml"
 )
@@ -73,6 +74,15 @@ func (m *CmdMoveFile) Undo() error {
 func (m *CmdMoveFile) Name() string { return m.CmdName }
 
 func NewCmdMoveFile(sourcePath, targetPath string) *CmdMoveFile {
+	sourcePath, err := filepath.Abs(sourcePath)
+	if err != nil {
+		panic(err)
+	}
+
+	targetPath, err = filepath.Abs(targetPath)
+	if err != nil {
+		panic(err)
+	}
 	return &CmdMoveFile{
 		CmdName:    "move",
 		SourcePath: sourcePath,
@@ -117,6 +127,14 @@ func (m *CmdCopyFile) Undo() error {
 func (m *CmdCopyFile) Name() string { return m.CmdName }
 
 func NewCmdCopyFile(sourcePath, targetPath string) *CmdCopyFile {
+	sourcePath, err := filepath.Abs(sourcePath)
+	if err != nil {
+		panic(err)
+	}
+	targetPath, err = filepath.Abs(targetPath)
+	if err != nil {
+		panic(err)
+	}
 	return &CmdCopyFile{
 		CmdName:    "copy",
 		SourcePath: sourcePath,
@@ -147,6 +165,10 @@ type Batch struct {
 }
 
 func NewBatch(walPath string, commands ...Command) *Batch {
+	walPath, err := filepath.Abs(walPath)
+	if err != nil {
+		panic(err)
+	}
 	return &Batch{
 		Type:     "batch_start",
 		WalPath:  walPath,
