@@ -254,7 +254,7 @@ func (b *Batch) ExecuteAll() error {
 		}
 	}
 
-	err = writeStatus("batch is done", nil, 0)
+	err = writeStatus("batch_done", nil, 0)
 	if err != nil {
 		return err
 	}
